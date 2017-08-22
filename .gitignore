@@ -1,0 +1,4 @@
+/node_modules
+/customer-ui/node_modules
+/logs/*.json
+!/logs/*.txt
