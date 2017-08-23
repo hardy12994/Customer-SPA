@@ -4,7 +4,7 @@ exports.configure = app => {
 
 
     app.get('/', function(req, res) {
-        res.render('index', { title: '* THIS IS GO API *' });
+        res.render('index', { title: '* THIS IS Customer-SPA API *' });
     });
 
     let api = app.appRouter;

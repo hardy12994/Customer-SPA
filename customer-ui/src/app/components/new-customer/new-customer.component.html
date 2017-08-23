@@ -1,0 +1,42 @@
+<div>
+    <div>
+        <button md-button class="btn">Back</button>
+    </div>
+    <div class="row margin">
+        <div class="col-md-6 col-md-offset-3">
+            <form class="form-horizontal">
+                <div class="form-group">
+                    <label class="control-label col-sm-2">Name:</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" id="Name" placeholder="Enter Name" name="name" required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-sm-2" for="email">Email:</label>
+                    <div class="col-sm-10">
+                        <input type="email" class="form-control" id="email" placeholder="Enter email" name="email" required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-sm-2" for="email">Mobile:</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" id="mobile" placeholder="Enter mobile" name="mobile" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-sm-2" for="email">Dob:</label>
+                    <div class="col-sm-10">
+                        <input type="email" class="form-control" id="dob" placeholder="Enter Dob" name="dob">
+                    </div>
+                </div>
+                <div class="form-group text-center">
+                    <div class="col-sm-offset-2 col-sm-10">
+                        <button (click)="add()" md-button class="btn btn-default">Add</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

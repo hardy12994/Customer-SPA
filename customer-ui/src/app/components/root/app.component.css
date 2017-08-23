@@ -1,0 +1,16 @@
+.toolbar {
+    background-color: #3c3c3c;
+}
+
+.btn {
+    color: lightcoral;
+    margin: 0px 30px 0px 30px;
+}
+
+.activeTab {
+    border-bottom: 1px solid lightcoral;
+}
+
+.margin {
+    margin: 30px;
+}

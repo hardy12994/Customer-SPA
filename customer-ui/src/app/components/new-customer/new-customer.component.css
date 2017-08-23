@@ -3,5 +3,9 @@
 }
 
 .pull-right {
-    float: right;
+    float: left;
+}
+
+.margin {
+    margin-top: 20px;
 }
