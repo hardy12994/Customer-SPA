@@ -8,8 +8,8 @@ exports.create = (req, res) => {
 
     var body = req.body;
 
-    if (!body.mobile || !body.email) {
-        return res.failure('mobile and email are required');
+    if (!(body.name && body.email && body.mobile)) {
+        return res.failure('mobile - email - name are required');
     }
 
     async.waterfall([
@@ -28,12 +28,8 @@ exports.create = (req, res) => {
             });
         },
         function(cb) {
-            new db.customer(body, function(err, data) {
-                if (err) {
-                    return cb(err);
-                }
-                cb(null, data);
-            });
+            new db.customer(body)
+                .save(cb);
         }
     ], function(err, data) {
         if (err) {
@@ -124,7 +120,17 @@ exports.update = (req, res) => {
 
 };
 
-exports.get = (req, res) => {};
+exports.get = (req, res) => {
+
+
+    db.customer.findById(req.params.id)
+        .exec(function(err, customer) {
+            if (err) {
+                return res.failure(err);
+            }
+            res.data(mapper.toModel(customer));
+        });
+};
 
 
 exports.search = (req, res) => {
@@ -196,7 +202,7 @@ exports.search = (req, res) => {
             if (err) {
                 return res.failure(err);
             }
-            res.data(mapper.toSearchModel(customers));
+            res.page(mapper.toSearchModel(customers));
         });
 
 };

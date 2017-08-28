@@ -8,7 +8,7 @@ exports.toModel = entity => {
         name: entity.name,
         email: entity.email,
         dob: entity.dob,
-        mobile: entity.phone,
+        mobile: entity.mobile,
         addresses: []
     };
 

@@ -1,3 +1,42 @@
-<p>
-  bills works!
-</p>
+<div>
+    <div class="align">
+        <button md-button class="btn" routerLink="/customers">Back</button>
+    </div>
+</div>
+
+<div *ngIf="reports.length > 0">
+
+    <div class="table-responsive text-center">
+        <table class="table table-condensed table-hover">
+            <thead>
+                <tr>
+                    <th class="tdWidth">Customer Name</th>
+                    <th class="tdWidth">Mobile</th>
+                    <th class="tdWidth">Email</th>
+                    <th class="tdWidth">Total Bills</th>
+                    <th class="tdWidth">Amount</th>
+                    <th class="tdWidth">Avg Amount</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let item of reports" class="capitalize">
+
+                    <td class="tdWidth">{{item?.customer?.name || 'NA'}}</td>
+                    <td class="tdWidth">{{item?.customer?.mobile || 'NA'}}</td>
+                    <td class="tdWidth">{{item?.customer?.email || 'NA'}}</td>
+                    <td class="tdWidth">{{item?.count || 'NA'}}</td>
+                    <td class="tdWidth">{{item?.totalAmt || 'NA'}}</td>
+                    <td class="tdWidth">{{item?.avgAmt || 'NA'}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+</div>
+
+
+<div *ngIf="reports.length === 0">
+    <div style="text-align: center;">
+        <h5>No Customer Found. Please Add </h5>
+    </div>
+</div>

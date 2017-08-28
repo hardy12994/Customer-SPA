@@ -1,26 +1,44 @@
 import { Http, Headers } from "@angular/http";
 import { Observable } from "rxjs/Observable";
 import { IApi } from "./apiInterface";
-import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/catch';
-
-
+import 'rxjs';
 
 
 export class GenricApi<Model> implements IApi<Model>{
 
 
-    constructor(private key:string,
-        private http: Http) { 
-
+    constructor(private key: string,
+        private http: Http) {
+        this.key = `/api/${this.key}`
     }
 
-    create(model: Model, path: string): Observable<Model> {
-        let url = `/api/${this.key}`;
-
+    create(Model: Model): Observable<Model> {
 
         return this.http
-            .post(url, model)
+            .post(this.key, Model)
+            .map(response => {
+
+                if (response.status !== 200 || response.statusText !== "OK") {
+                    throw "response not valid"
+                }
+
+                let res = JSON.parse(response["_body"]);
+
+                if (res.error ||  !res.isSuccess) {
+                    throw res.error || "response not valid"
+                }
+                return res.data
+            })
+            .catch(err => {
+                throw err
+            });
+    }
+
+
+    update(Model: Model, options: object): Observable<Model> {
+
+        return this.http
+            .put(this.key, Model, options)
             .map(response => {
                 return response
             })
@@ -28,42 +46,52 @@ export class GenricApi<Model> implements IApi<Model>{
     }
 
 
-    update(model: Model, path: string, options: object): Observable<Model> {
+    delete(id:string): Observable<Model> {
         return this.http
-            .put(path, model, options)
+            .delete(this.key + `/${id}`)
+            .catch(err => { 
+                throw err
+             });
+    }
+
+
+    get(id: string): Observable<Model> {
+
+        return this.http
+            .get(this.key + `/${id}`)
             .map(response => {
-                return response
+
+                if (response.status !== 200 || response.statusText !== "OK") {
+                    throw "response not valid"
+                }
+
+                let res = JSON.parse(response["_body"]);
+
+                if (res.error || !res.isSuccess) {
+                    throw res.error || "response not valid"
+                }
+                return res.data
             })
             .catch(err => { throw err });
     }
 
 
-    delete(path: string, options: object): Observable<Model> {
+    search(options: object): Observable<Array<Model>> { // to do as Array
+
         return this.http
-            .delete(path, options)
+            .get(this.key, options)
             .map(response => {
-                return response
-            })
-            .catch(err => { throw err });
-    }
 
+                if (response.status !== 200 || response.statusText !== "OK") {
+                    throw "response not valid"
+                }
 
-    get(path: string, options: object): Observable<Model> {
-        return this.http
-            .get(path, options)
-            .map(response => {
-                return response
-            })
-            .catch(err => { throw err });
-    }
+                let res = JSON.parse(response["_body"]);
 
-
-
-    search(path: string, options: object): Observable < Array < Model > > { // to do as Array
-        return this.http
-            .get(path, options)
-            .map(response => {
-                return response
+                if (res.error || !res.isSuccess) {
+                    throw res.error || "response not valid"
+                }
+                return res.items
             })
             .catch(err => { throw err });
     }

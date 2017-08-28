@@ -1,0 +1,15 @@
+.tdWidth {
+    width: 13%;
+    text-align: center;
+}
+
+.btn {
+    background-color: lightcoral;
+}
+
+.align {
+    margin-bottom: 20px;
+    margin-top: 20px;
+    margin-left: 20px;
+    text-align: left;
+}

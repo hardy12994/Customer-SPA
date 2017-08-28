@@ -45,6 +45,6 @@ let items = [{
 
 exports.getItems = () => {
 
-    let noOfItems = (Math.random() + 1) + 1;
+    let noOfItems = Math.trunc(Math.random() + 1) + 1;
     return items.slice(0, noOfItems);
 };

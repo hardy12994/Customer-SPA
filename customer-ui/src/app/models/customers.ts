@@ -4,10 +4,10 @@ export class Customer {
     mobile: string | '';
     dob: string | '';
     email: string | '';
-    addresses: Addresses [];
+    addresses: Address []=[];
 };
 
-class Addresses {
+export class Address {
     hNo: string='';
     street: string='';
     city: string='';

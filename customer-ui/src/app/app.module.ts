@@ -8,18 +8,22 @@ import { AppComponent } from './components/root/app.component';
 import { CustomersComponent } from './components/customers/customers.component';
 import { BillsComponent } from './components/bills/bills.component';
 import { NewCustomerComponent } from './components/new-customer/new-customer.component';
+import { FormsModule } from "@angular/forms";
+import { CustomerEditComponent } from './components/customer-edit/customer-edit.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     CustomersComponent,
     BillsComponent,
-    NewCustomerComponent
+    NewCustomerComponent,
+    CustomerEditComponent
   ],
   imports: [
     // MaterialModule.forRoot(),
     MaterialModule,
     BrowserModule,
+    FormsModule,
     AppRouting,
     HttpModule
   ],

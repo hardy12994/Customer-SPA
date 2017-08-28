@@ -2,6 +2,24 @@
     background-color: lightcoral;
 }
 
+.align {
+    margin-bottom: 20px;
+    margin-top: 20px;
+    margin-right: 20px;
+    text-align: right;
+}
+
 .pull-right {
     float: right;
+}
+
+.tdWidth {
+    width: 13%;
+    /*border: 1px solid black;*/
+    text-align: center;
+}
+
+.actions {
+    background-color: lightgrey;
+    /*color: white;*/
 }
