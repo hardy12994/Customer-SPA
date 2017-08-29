@@ -12,7 +12,7 @@ Single Page Application
  ```sh
 server {
     listen 98;
-    server_name customer - local.m - sas.com;
+    
     location / api / {
         proxy_pass http: //localhost:3000/api/;
             proxy_read_timeout 120 s;
