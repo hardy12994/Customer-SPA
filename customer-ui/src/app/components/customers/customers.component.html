@@ -1,8 +1,24 @@
 <div>
-    <div class="align">
-        <button md-button class="btn" (click)="add()">Add Customer</button>
 
+    <div class="searchRow">
+        <div class="row">
+            <div class="col-md-3 col-md-offset-1">
+                <input class="form-control" type="text" [(ngModel)]="name" placeholder="Enter Name" required>
+            </div>
+            <div class="col-md-3">
+                <input class="form-control" type="text" [(ngModel)]="mobile" placeholder="Enter Phone" required>
+            </div>
+            <div class="col-md-3">
+                <input class="form-control" type="date" [(ngModel)]="dob" placeholder="Enter Dob" required>
+            </div>
+
+            <div class="col-md-1">
+                <button md-button class="btn" (click)="search()">Search</button>
+            </div>
+
+        </div>
     </div>
+
 </div>
 
 <div *ngIf="customers.length !== 0">
@@ -42,6 +58,15 @@
 
 <div *ngIf="customers.length === 0">
     <div style="text-align: center;">
-        <h5>No Customer Found. Please Add </h5>
+        <h5><b>No Customer Found. Please Add</b></h5>
     </div>
+</div>
+
+<div class="text-right page" *ngIf="customers.length !== 0">
+    <select [(ngModel)]="pageSize" (change)="pageNo = 1;getAllCustomers();">
+        <option [value]=10>10</option>
+        <option [value]=20>20</option>
+    </select>
+    <button class="pagination" (click)="previous()">Previous</button>
+    <button class="pagination" (click)="next()">Next</button>
 </div>

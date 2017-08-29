@@ -35,12 +35,22 @@ export class GenricApi<Model> implements IApi<Model>{
     }
 
 
-    update(Model: Model, options: object): Observable<Model> {
+    update(id: string,Model: Model): Observable<Model> {
 
         return this.http
-            .put(this.key, Model, options)
+            .put(this.key+`/${id}`, Model)
             .map(response => {
-                return response
+             
+                if (response.status !== 200 || response.statusText !== "OK") {
+                    throw "response not valid"
+                }
+
+                let res = JSON.parse(response["_body"]);
+
+                if (res.error ||  !res.isSuccess) {
+                    throw res.error || "response not valid"
+                }
+                return res.data
             })
             .catch(err => { throw err });
     }

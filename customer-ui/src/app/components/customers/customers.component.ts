@@ -11,6 +11,11 @@ import { Customer } from "app/models/customers";
 export class CustomersComponent implements OnInit {
 
   customers: Customer[]=[];
+  pageSize:number=10;
+  pageNo: number = 1;
+  name: string = null;
+  mobile: string = null;
+  dob: string = null;
 
   constructor(private router: Router,
     private customerService: CustomerService) {
@@ -18,9 +23,44 @@ export class CustomersComponent implements OnInit {
     this.getAllCustomers();
   }
 
+
+next(){
+  this.pageNo++;
+  this.getAllCustomers();  
+}
+
+
+previous() {
+  this.pageNo--;
+  this.getAllCustomers();
+}
+
+search() {
+  this.customerService.customer.search({
+    search: {
+      pageSize: this.pageSize,
+      pageNo: this.pageNo,
+      name:this.name,
+      mobile:this.mobile,
+      dob:this.dob
+    }
+  })
+    .subscribe((items: Customer[]) => {
+      this.customers = items;
+    },
+    err => {
+      console.log(`Error while feting all customers : ${err}`);
+    })
+}
+
+
   getAllCustomers() {
 
-    this.customerService.customer.search({})
+    this.customerService.customer.search({
+      search: {
+        pageSize: this.pageSize,
+        pageNo: this.pageNo
+      }})
       .subscribe((items: Customer[]) => {
         this.customers = items;
       },

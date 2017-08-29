@@ -142,24 +142,24 @@ exports.search = (req, res) => {
     var toPage = pageSize * pageNo;
 
 
-    if (req.query.name) {
+    if (req.query.name && req.query.name !== "null" && req.query.name !== null) {
         query.name = {
             $regex: req.query.name,
             $options: 'i'
         };
     }
 
-    if (req.query.mobile) {
+    if (req.query.mobile && req.query.mobile !== "null" && req.query.mobile !== null) {
         query.mobile = {
             $regex: req.query.mobile,
             $options: 'i'
         };
     }
 
-    if (req.query.dob) {
-        query.mobile = {
-            $regex: req.query.mobile,
-            $options: 'i'
+    if (req.query.dob && req.query.dob !== "null" && req.query.dob !== null) {
+        query.dob = {
+            $gte: moment(req.query.dob).set("hours", 0).set("minutes", 0).set("seconds", 0).set("milliseconds", 0),
+            $lte: moment(req.query.dob).set("hours", 0).set("minutes", 0).set("seconds", 0).set("milliseconds", 0).add(1, "day")
         };
     }
 
@@ -210,9 +210,18 @@ exports.search = (req, res) => {
 exports.delete = (req, res) => {
     let customerId = req.params.id;
 
-    db.customer.remove({
-        _id: customerId
-    }, function(err, customer) {
+    async.parallel([
+        function(cb) {
+            db.bill.remove({
+                customer: customerId
+            }, cb);
+        },
+        function(cb) {
+            db.customer.remove({
+                _id: customerId
+            }, cb);
+        }
+    ], function(err) {
         if (err) {
             return res.failure(err);
         }

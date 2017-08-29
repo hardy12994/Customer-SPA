@@ -31,6 +31,17 @@ export class CustomerEditComponent implements OnInit {
     console.log(this.customer);
   }
 
+  update() {
+    this.customerService.customer.update(this.customer.id,this.customer)
+    .subscribe(
+      data=>{
+        this.router.navigateByUrl('/customers');
+      },
+      err => { 
+        console.log(err);
+      })
+
+  }
 
   ngOnInit() {
   }

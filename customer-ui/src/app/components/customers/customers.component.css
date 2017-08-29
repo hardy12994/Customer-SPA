@@ -2,11 +2,19 @@
     background-color: lightcoral;
 }
 
+.searchRow {
+    margin: 20px;
+}
+
+.page {
+    margin-right: 20px;
+}
+
 .align {
     margin-bottom: 20px;
     margin-top: 20px;
-    margin-right: 20px;
-    text-align: right;
+    /*margin-right: 20px;*/
+    text-align: center;
 }
 
 .pull-right {
